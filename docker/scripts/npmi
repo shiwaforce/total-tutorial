@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# run npm only if need
+latest_hash_of_package_json="$(md5sum ./package.json | cut -c1-32)"
+latest_saved_hash=""
+
+need_npm_i=false
+
+if [[ -f ./latest_hash_of_package_json && -d ./node_modules ]]; then
+	latest_saved_hash="$(cat ./latest_hash_of_package_json | head -1)"
+	if [ "$latest_saved_hash" == "$latest_hash_of_package_json" ]; then
+		echo "doesn't need npm i (\"$latest_saved_hash\" == \"$latest_hash_of_package_json\")"
+		need_npm_i=false
+	else
+		echo "package.json is changed, need npm i (\"$latest_saved_hash\" != \"$latest_hash_of_package_json\")"
+		need_npm_i=true
+	fi
+else
+	echo "initial run (there is no 'node_modules' folder or 'latest_hash_of_package_json' file)"
+	need_npm_i=true
+fi
+
+if $need_npm_i; then
+	echo "running the npm install, please be patient..."
+	npm set progress=false
+	npm config set save-exact=true
+	npm i --no-fund
+	OUT=$?
+	if [ $OUT -eq 0 ]; then
+		echo "${latest_hash_of_package_json}" >latest_hash_of_package_json
+		echo "npm install successfully ended"
+	else
+		echo >&2 "npm reports an error $OUT"
+		exit 2
+	fi
+fi

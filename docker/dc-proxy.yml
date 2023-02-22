@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  total-tutorial-proxy:
+    container_name: total-tutorial-proxy
+    depends_on:
+      - total-tutorial-development
+    links:
+      - total-tutorial-development
+    image: nginx:alpine
+    volumes:
+      - ${PROJECT_HOME}/docker/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ${PROJECT_HOME}/frontend/example-pages:/usr/share/nginx/html:ro
+      - ${PROJECT_HOME}/frontend/dist:/usr/share/nginx/static:ro
+    ports:
+      - 80:80
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "3"

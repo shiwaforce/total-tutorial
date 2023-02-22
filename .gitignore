@@ -1,0 +1,5 @@
+node_modules
+.vscode
+.idea
+latest_hash_of_package_json
+frontend/dist

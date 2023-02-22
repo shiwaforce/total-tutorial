@@ -1,0 +1,11 @@
+{
+  "name": "eslint-plugin-abc",
+  "version": "1.0.0",
+  "description": "This is an eslint plugin that describes the order of javascript imports with the simple rule (and also requires compliance) that imports should be in abc order.",
+  "main": "plugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sarkiroka",
+  "license": "MIT"
+}

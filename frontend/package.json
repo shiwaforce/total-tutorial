@@ -1,0 +1,44 @@
+{
+  "name": "tutorial.js",
+  "description": "No-code/low-code webapp onboarding and tutorial library. You can create a step by step tutorial to your visitors without programming!",
+  "version": "0.1.1",
+  "scripts": {
+    "dev": "vite build --watch --config vite.config.js & vite build --watch --config vite.config-admin.js",
+    "build": "vite build --config vite.config.js && vite build --config vite.config-admin.js",
+    "lint": "eslint ./source --ext .vue,.js --fix"
+  },
+  "license": "CC-BY",
+  "author": {
+    "name": "sarkiroka"
+  },
+  "contributors": [
+    {
+      "name": "Gyuri"
+    },
+    {
+      "name": "István"
+    }
+  ],
+  "bugs": {
+    "email": "hello@shiwaforce.com",
+    "url": "https://shiwaforce.com/products/total-tutorial?id"
+  },
+  "dependencies": {
+    "dompurify": "3.0.0",
+    "pinia": "2.0.29",
+    "vue": "3.2.45"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "3.2.0",
+    "eslint": "8.32.0",
+    "eslint-config-client-shiwaforce": "1.1.11",
+    "eslint-plugin-abc": "file:./eslint-plugin-abc",
+    "eslint-plugin-vue": "9.9.0",
+    "eslint-plugin-vue-pug": "0.5.5",
+    "extend": "3.0.2",
+    "pug": "3.0.2",
+    "vite": "3.2.5",
+    "vite-plugin-banner": "0.7.0",
+    "vite-plugin-css-injected-by-js": "2.4.0"
+  }
+}

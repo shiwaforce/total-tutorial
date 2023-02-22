@@ -47,6 +47,23 @@ All css classes used start with the prefix "tt-" (tt is a shortcut to the name o
 
 But it's all up to you, no limits!
 
+## Programmed integration, event-driven operation
+
+It is natural to want to perform operations in the event that the total-tutorial is closed or has just finished. You can then trigger various functions on your website.
+
+All you need to do is subscribe to the total-tutorial-exit and total-tutorial-finish events:
+
+```js
+document.body.addEventListener('total-tutorial-exit', exitEvent => {
+	// your custom event handling here
+	console.log(exitEvent.detail.step); // how many step copleted
+});
+
+document.body.addEventListener('total-tutorial-finish', finishEvent => {
+	// your custom event handling here
+});
+```
+
 ## Contributors
 
 - Gyuri
@@ -78,5 +95,5 @@ We're cool, trust us
 
 CC-BY
 
-This means in a nutshell that if you use the [compiled application](./dist/total-tutorial.js) from the dist folder, there is nothing else to do, you are free to use it for personal purpose.
+This means in a nutshell that if you use the [compiled application](./frontend/dist/total-tutorial.js) from the dist folder, there is nothing else to do, you are free to use it for personal purpose.
 The points is that, it is mandatory to include the total-tutorial git url in the source code, and it must appear in the production environment.

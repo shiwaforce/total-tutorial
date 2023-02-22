@@ -1,0 +1,19 @@
+version: "3.0"
+maintainer: "operations@shiwaforce.com"
+
+before_script:
+  - find docker/scripts -type f -exec sed -i 's/^M$//g' {} \; && chmod +x docker/scripts/* && mkdir -p frontend/dist
+
+environment:
+  include: docker/conf/conf.env
+
+plan:
+  js:
+    description: "Development environment for the JavaScript developers"
+    docker-compose-file:
+      - docker/dc-proxy.yml
+      - docker/dc-total-tutorial.yml
+  build:
+    description: "Production ready build"
+    docker-compose-file:
+      - docker/dc-build.yml

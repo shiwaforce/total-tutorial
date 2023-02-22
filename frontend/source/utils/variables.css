@@ -1,0 +1,21 @@
+[data-v-app][data-total-tutorial] * {
+	/* background colors */
+	--background-color: #f3f3f3;
+	--layer-color: rgba(74, 74, 74, .5);
+	/* colors */
+	--color-base: rgba(74, 74, 74, 1); /* 74 is a hex value of ascii code of letter t, t is the main letter of total-tutorial: tt */
+	--color-normal: rgba(74, 74, 74, .75);
+	--color-green: #16a34a;
+	--color-orange: #ff8b3d;
+	--color-gray-ff: #ffffff;
+	--color-gray-d9: #d9d9d9;
+	/* timing */
+	--fast: 250ms;
+	--slow: 750ms;
+	/* z-index */
+	--z-index-popup-content: 99999;
+	--z-index-popup-layer: 99998;
+	--z-index-tutorial-content:99997;
+	--z-index-tutorial-layer:99996;
+	--z-index-background-layer:99990;
+}

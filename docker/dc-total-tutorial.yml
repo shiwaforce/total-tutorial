@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  total-tutorial-development:
+    container_name: total-tutorial-development
+    image: node:18
+    user: "${POCO_UID}"
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "3"
+    volumes:
+      - ${PROJECT_HOME}/frontend:/usr/local/app/frontend
+      - ${PROJECT_HOME}/docker:/usr/local/app/docker
+    working_dir: /usr/local/app/docker/scripts
+    command: ./development.sh
