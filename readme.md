@@ -4,6 +4,9 @@ No-code/low-code webapp onboarding and tutorial library.
 
 You can create a step by step tutorial to your visitors without programming!
 
+Here is a GIF to demonstrate what the program is capable of:
+![](https://github.com/shiwaforce/total-tutorial/blob/master/assets/total_tutorial.gif)
+
 ## How to use?
 
 Just include into your website. For example:
