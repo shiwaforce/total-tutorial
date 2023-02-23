@@ -109,7 +109,7 @@ const topLeft = computed(() => {
 		const rect = selectedElement.getBoundingClientRect();
 		const top = `${document.body.parentNode.scrollTop + rect.top + rect.height + 16}px`;
 		const wholePanel = document.querySelector('.tt-admin-container');
-		const left = calculateTutorialBoxLeft(wholePanel.offsetWidth, props.step.selector, rect);
+		const left = `${calculateTutorialBoxLeft(wholePanel.offsetWidth, props.step.selector, rect)}px`;
 		topLeftValue.top = top;
 		topLeftValue.left = left;
 	}
