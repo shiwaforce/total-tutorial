@@ -44,6 +44,8 @@ const boxTop = computed(() => {
 	return `${calculatedTop}px`;
 });
 const boxLeft = computed(() => calculateTutorialBoxLeft(currentStep.value.width, currentStep.value.selector, currentElementBoundingRect.value));
+const boxLeftWithPx = computed(() => `${boxLeft.value}px`);
+const arrowLeft = computed(() => `${currentElementBoundingRect.value.left - boxLeft.value}px`);
 // element highlight
 const elementLayerHeight = computed(() => currentElementBoundingRect.value.height + 8 + 'px');
 const elementLayerWidth = computed(() => currentElementBoundingRect.value.width + 8 + 'px');
@@ -141,7 +143,7 @@ onMounted(() => {
 	border: 1px solid var(--color-normal);
 	border-radius: 8px;
 	height: v-bind(currentStepHeight);
-	left: v-bind(boxLeft);
+	left: v-bind(boxLeftWithPx);
 	padding: 8px 0 8px 8px; /* because scrollbar */
 	position: v-bind(boxPosition);
 	top: v-bind(boxTop);
@@ -160,7 +162,7 @@ onMounted(() => {
 	border-bottom: 10px solid #eee;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
-	left: 20px;
+	left: v-bind(arrowLeft);
 	height: 0;
 	position: absolute;
 	top: -10px;
