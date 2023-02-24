@@ -13,6 +13,7 @@ import {computed, nextTick, onMounted, ref, watch} from 'vue';
 import constants from '../../utils/constants';
 import {getOffsetLeft, getOffsetTop} from '../../utils/get-offset';
 import {scrollIntoTheMiddleOfTheTutorialStep} from '../../utils/scroll-into-middle';
+import removePxSuffix from "../../utils/remove-px-suffix";
 
 const props = defineProps({
 	config: {
@@ -43,9 +44,8 @@ const boxTop = computed(() => {
 	}
 	return `${calculatedTop}px`;
 });
-const boxLeft = computed(() => calculateTutorialBoxLeft(currentStep.value.width, currentStep.value.selector, currentElementBoundingRect.value));
-const boxLeftWithPx = computed(() => `${boxLeft.value}px`);
-const arrowLeft = computed(() => `${currentElementBoundingRect.value.left - boxLeft.value}px`);
+const boxLeft = computed(() => `${calculateTutorialBoxLeft(currentStep.value.width, currentStep.value.selector, currentElementBoundingRect.value)}`);
+const arrowLeft = computed(() => `${currentElementBoundingRect.value.left - removePxSuffix(boxLeft.value)}px`);
 // element highlight
 const elementLayerHeight = computed(() => currentElementBoundingRect.value.height + 8 + 'px');
 const elementLayerWidth = computed(() => currentElementBoundingRect.value.width + 8 + 'px');
@@ -143,7 +143,7 @@ onMounted(() => {
 	border: 1px solid var(--color-normal);
 	border-radius: 8px;
 	height: v-bind(currentStepHeight);
-	left: v-bind(boxLeftWithPx);
+	left: v-bind(boxLeft);
 	padding: 8px 0 8px 8px; /* because scrollbar */
 	position: v-bind(boxPosition);
 	top: v-bind(boxTop);
