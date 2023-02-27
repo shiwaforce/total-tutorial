@@ -13,6 +13,7 @@ import {computed, nextTick, onMounted, ref, watch} from 'vue';
 import constants from '../../utils/constants';
 import {getOffsetLeft, getOffsetTop} from '../../utils/get-offset';
 import {scrollIntoTheMiddleOfTheTutorialStep} from '../../utils/scroll-into-middle';
+import removePxSuffix from "../../utils/remove-px-suffix";
 
 const props = defineProps({
 	config: {
@@ -43,7 +44,8 @@ const boxTop = computed(() => {
 	}
 	return `${calculatedTop}px`;
 });
-const boxLeft = computed(() => calculateTutorialBoxLeft(currentStep.value.width, currentStep.value.selector, currentElementBoundingRect.value));
+const boxLeft = computed(() => `${calculateTutorialBoxLeft(currentStep.value.width, currentStep.value.selector, currentElementBoundingRect.value)}`);
+const arrowLeft = computed(() => `${currentElementBoundingRect.value.left - removePxSuffix(boxLeft.value)}px`);
 // element highlight
 const elementLayerHeight = computed(() => currentElementBoundingRect.value.height + 8 + 'px');
 const elementLayerWidth = computed(() => currentElementBoundingRect.value.width + 8 + 'px');
@@ -160,7 +162,7 @@ onMounted(() => {
 	border-bottom: 10px solid #eee;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
-	left: 20px;
+	left: v-bind(arrowLeft);
 	height: 0;
 	position: absolute;
 	top: -10px;

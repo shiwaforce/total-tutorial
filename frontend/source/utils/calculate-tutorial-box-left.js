@@ -6,7 +6,7 @@ import constants from './constants';
  * @param {string|number} width - The width of the tutorial box. If not provided or not a number, the default width will be used.
  * @param {string} selector - The CSS selector of the current element.
  * @param {Object} currentElementBoundingRect - The bounding rectangle of the current element.
- * @returns {string} The calculated left position of the tutorial box, in pixels.
+ * @returns {number} The calculated left position of the tutorial box, in pixels.
  */
 const calculateTutorialBoxLeft = (width, selector, currentElementBoundingRect) => {
 	const boxWidth = parseInt(width, 10) || constants.DEFAULT_WIDTH_OF_TUTORIAL_LAYER;
@@ -28,7 +28,7 @@ const calculateTutorialBoxLeft = (width, selector, currentElementBoundingRect) =
 		if (right > screenWidth - scrollbarWidth) {
 			return `${left - (right - screenWidth + scrollbarWidth)}px`;
 		} else {
-			return `${left}px`;
+			return left;
 		}
 	}
 };

@@ -73,10 +73,12 @@ tutorial-popup(v-if="isShowConfirmationOfRemoveStep")
 <script setup>
 import calculateTutorialBoxLeft from '../../utils/calculate-tutorial-box-left';
 import {computed, ref} from 'vue';
+import {getOffsetLeft} from "../../utils/get-offset";
 import EditableElement from './editable-element.vue';
 import HoledAdminLayer from './holed-admin-layer.vue';
 import IconWithText from '../svg-icon/icon-with-text.vue';
 import TutorialPopup from '../tutorial-popup/tutorial-popup.vue';
+import removePxSuffix from "../../utils/remove-px-suffix";
 
 const props = defineProps({
 	step: {
@@ -97,6 +99,7 @@ const emit = defineEmits([
 	'change-step', 'new-step', 'remove-step', 'move-step', 'prev-step', 'next-step', 'finish', 'pick', 'unpick', 'exit'
 ]);
 
+const currentDomElement = computed(() => document.querySelector(props.step?.selector) || document.createElement('div'));
 const isFulfilled = computed(() => props.step.title && props.step.description);
 const hasOtherStep = computed(() => props.countOfSteps > 1);
 const hasSelector = computed(() => props.step.selector);
@@ -105,15 +108,17 @@ const hasPrevStep = computed(() => props.stepIndex > 0);
 const topLeft = computed(() => {
 	const topLeftValue = {top: 0, left: 0};
 	if (props.step?.selector) {
-		const selectedElement = document.querySelector(props.step.selector);
-		const rect = selectedElement.getBoundingClientRect();
+		const rect = currentDomElement.value?.getBoundingClientRect();
 		const top = `${document.body.parentNode.scrollTop + rect.top + rect.height + 16}px`;
 		const wholePanel = document.querySelector('.tt-admin-container');
-		const left = calculateTutorialBoxLeft(wholePanel.offsetWidth, props.step.selector, rect);
+		const left = `${calculateTutorialBoxLeft(wholePanel.offsetWidth, props.step.selector, rect)}px`;
 		topLeftValue.top = top;
 		topLeftValue.left = left;
 	}
 	return topLeftValue;
+});
+const arrowLeft = computed(() => {
+	return `${getOffsetLeft(currentDomElement.value) - removePxSuffix(topLeft.value.left)}px`
 });
 
 function onChangeTitle(newTitle) {
@@ -223,7 +228,7 @@ function removeStep() {
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
 	display: none;
-	left: 20px;
+	left: v-bind(arrowLeft);
 	height: 0;
 	position: absolute;
 	top: -9px;
