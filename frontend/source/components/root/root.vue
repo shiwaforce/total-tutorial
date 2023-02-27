@@ -41,8 +41,9 @@ const observer = new MutationObserver(() => {
 
 onMounted(() => {
 	try {
-		isTutorialClosed.value = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEY))?.isClosed;
-		isTutorialFinished.value = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEY))?.isFinished;
+		const state = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEY))?.[window.location.pathname];
+		isTutorialClosed.value = state?.isClosed;
+		isTutorialFinished.value = state?.isFinished;
 	} catch (error) {
 		console.warn('Couldn\'t get local storage', error, isTutorialClosed, isTutorialFinished);
 		isTutorialClosed.value = false;
@@ -71,20 +72,25 @@ function sendDomEvent(eventName, detail = {}) {
 	}));
 }
 
+const updateTutorialState = (actionType) => {
+	const currentPathname = window.location.pathname;
+	const state = loadStateFromLocalStorage();
+	const tutorialState = state[currentPathname] || {steps: []};
+	tutorialState[actionType] = true;
+	state[currentPathname] = tutorialState;
+	saveStateToLocalStorage(state);
+	const domEventAction = actionType === 'isClosed' ? 'closed' : 'finished';
+	sendDomEvent(`total-tutorial-${domEventAction}`, {step: config.currentStep});
+};
+
 const onExitTutorial = () => {
 	isTutorialClosed.value = true;
-	const state = loadStateFromLocalStorage();
-	state.isClosed = true;
-	saveStateToLocalStorage(state);
-	sendDomEvent('total-tutorial-exit', {step: config.currentStep});
+	updateTutorialState('isClosed');
 };
 
 const onFinishTutorial = () => {
 	isTutorialFinished.value = true;
-	const state = loadStateFromLocalStorage();
-	state.isFinished = true;
-	saveStateToLocalStorage(state);
-	sendDomEvent('total-tutorial-finish', {step: config.currentStep});
+	updateTutorialState('isFinished');
 };
 </script>
 
