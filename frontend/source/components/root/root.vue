@@ -79,18 +79,17 @@ const updateTutorialState = (actionType) => {
 	tutorialState[actionType] = true;
 	state[currentPathname] = tutorialState;
 	saveStateToLocalStorage(state);
-	const domEventAction = actionType === 'isClosed' ? 'closed' : 'finished';
-	sendDomEvent(`total-tutorial-${domEventAction}`, {step: config.currentStep});
+	sendDomEvent(`total-tutorial-${actionType}`, {step: config.currentStep});
 };
 
 const onExitTutorial = () => {
 	isTutorialClosed.value = true;
-	updateTutorialState('isClosed');
+	updateTutorialState('exit');
 };
 
 const onFinishTutorial = () => {
 	isTutorialFinished.value = true;
-	updateTutorialState('isFinished');
+	updateTutorialState('finish');
 };
 </script>
 
