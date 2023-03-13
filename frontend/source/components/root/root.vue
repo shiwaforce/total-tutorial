@@ -26,18 +26,37 @@ const store = useStore();
 
 let config = store.configForCurrentUrl();
 
-const stepSelectorPresent = step => document.querySelector(step.selector) || !step.selector;
-const observer = new MutationObserver(() => {
-	const loaded = config?.steps?.length && config?.steps.every(stepSelectorPresent);
-	if (!loaded) {
-		console.info('total tutorial waits for selector(s)', config?.steps?.filter(step => step.selector && !document.querySelector(step.selector)).map(step => step.selector));
+const stepSelectorPresent = step => !step.selector || document.querySelector(step.selector);
+let observerTimeout = -1;
+const loadAnyway = () => {
+	const foundMustHaveSelectorMissing = config?.steps?.filter(step => step.selector && step.mustPresent && !document.querySelector(step.selector));
+	if (foundMustHaveSelectorMissing.length) {
+		console.debug('waits for must have selectors', foundMustHaveSelectorMissing.map(step => step.selector));
+		// if mutation observer not trigger, try it later
+		observerTimeout = setTimeout(loadAnyway, constants.WEBSITE_MUTATION_TIMEOUT_ON_BOOT_MS);
+	} else {
+		const notFoundSteps = config?.steps?.filter(step => step.selector && !document.querySelector(step.selector));
+		console.debug('site does not loaded at time, drop not loaded selectors', notFoundSteps.map(step => step.selector));
+		notFoundSteps.forEach(step => {
+			step.selector = '';
+		})
+		hasAllElementsLoaded.value = true;
 	}
+}
+const mutationObserverCallback = () => {
+	clearTimeout(observerTimeout);
+	const loaded = config?.steps?.length && config?.steps.every(stepSelectorPresent);
 	if (loaded) {
 		setTimeout(() => { // when loaded, try to access later again
 			hasAllElementsLoaded.value = config?.steps?.every(stepSelectorPresent);
 		});
+	} else {
+		console.debug('total tutorial waits for selector(s)', config?.steps?.filter(step => step.selector && !document.querySelector(step.selector)).map(step => step.selector));
+		// if site too slow, or broken, show tutorial anyway
+		observerTimeout = setTimeout(loadAnyway, constants.WEBSITE_MUTATION_TIMEOUT_ON_BOOT_MS);
 	}
-});
+}
+const observer = new MutationObserver(mutationObserverCallback);
 
 onMounted(() => {
 	try {
@@ -53,9 +72,11 @@ onMounted(() => {
 		config = store.configForCurrentUrl();
 		hasAllElementsLoaded.value = config?.steps?.every(step => document.querySelector(step.selector) || !step.selector);
 	});
+	console.debug('observing start');
 	observer.observe(document.body, {attributes: true, childList: true, subtree: true});
+	mutationObserverCallback();
 	const initStatic = inject(`$${constants.INIT_STATIC}`);
-	if (!localStorage.getItem(`${constants.APP_NAME}-${constants.INIT_STATIC}`)) {
+	if (!localStorage.getItem(`${constants.APP_NAME}_${constants.INIT_STATIC}`)) {
 		initStatic();
 	}
 });

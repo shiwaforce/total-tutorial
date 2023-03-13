@@ -15,10 +15,7 @@ const calculateTutorialBoxLeft = (width, selector, currentElementBoundingRect) =
 	const hasVerticalScrollbar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
 	const scrollbarWidth = hasVerticalScrollbar ? window.innerWidth - document.documentElement.clientWidth : 0;
 
-	if (!selector) {
-		// Center the box horizontally on the screen, taking into account the scrollbar width.
-		return `${(screenWidth - boxWidth - scrollbarWidth) / 2}px`;
-	} else {
+	if (selector) {
 		// Calculate the minimum left position required to fully show the element inside the screen.
 		const minLeft = screenWidth - boxWidth - scrollbarWidth;
 		const left = Math.max(Math.min(elementLeft - 25 - scrollbarWidth, minLeft), 2);
@@ -28,8 +25,11 @@ const calculateTutorialBoxLeft = (width, selector, currentElementBoundingRect) =
 		if (right > screenWidth - scrollbarWidth) {
 			return `${left - (right - screenWidth + scrollbarWidth)}px`;
 		} else {
-			return left;
+			return `${left}px`;
 		}
+	} else {
+		// Center the box horizontally on the screen, taking into account the scrollbar width.
+		return `${(screenWidth - boxWidth - scrollbarWidth) / 2}px`;
 	}
 };
 

@@ -1,6 +1,6 @@
 <template lang="pug">
-button.tt-navigate-button(v-if="hasPreviousButton" @click="store.stepRelative(-1)") Back
-button.tt-navigate-button(v-if="hasNextButton" ref="nextButton" @click="store.stepRelative(+1)") Next
+button.tt-navigate-button(v-if="hasPreviousButton" @click="stepRelative(-1)") Back
+button.tt-navigate-button(v-if="hasNextButton" ref="nextButton" @click="stepRelative(+1)") Next
 button.tt-navigate-button(v-if="hasFinishButton" @click="finish") Finish
 </template>
 
@@ -15,7 +15,7 @@ const props = defineProps({
 	}
 });
 
-const emit = defineEmits(['finish-tutorial']);
+const emit = defineEmits(['finish-tutorial', 'navigate-to-step']);
 
 const store = useStore();
 const nextButton = ref(null);
@@ -28,6 +28,11 @@ function setNextFocus() {
 	setTimeout(() => {
 		nextButton.value?.focus();
 	});
+}
+
+function stepRelative(direction) {
+	emit('navigate-to-step', direction);
+	store.stepRelative(direction);
 }
 
 watch(() => props.config, setNextFocus);
