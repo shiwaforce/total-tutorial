@@ -11,10 +11,11 @@ export default {
 	LOCAL_STORAGE_KEY: APP_NAME + '_state',
 	STATIC_URL: packageJson.bugs?.url,
 	QUERY_PARAM_INTRO: '=',
-	INIT_STATIC: 'initStatic',
+	INIT_STATIC: 'init-static',
 	CURRENT_ELEMENT_CLASSNAME: 'tt-current-element',
 	CURRENT_PARENTS_CLASSNAME: 'tt-current-parents',
 	JSON_PARSE_ERROR_CONTEXT_LENGTH : 15,
 	ROOT_ID: 'rootId',
-	ALLOWED_HTML_TAGS
+	ALLOWED_HTML_TAGS,
+	WEBSITE_MUTATION_TIMEOUT_ON_BOOT_MS: 2000
 };

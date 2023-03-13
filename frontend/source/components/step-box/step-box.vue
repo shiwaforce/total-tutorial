@@ -11,7 +11,7 @@ holed-layer(:config="config")
 		.tt-progress-container
 			stepper-progress(:steps="config.steps" :current-step="config.currentStep" @step-to-index="onStepToIndex($event)")
 		.tt-navigate-buttons-container(:class="{'tt-justify-content-right': config.currentStep <= 0}")
-			navigate-buttons(:config="props.config" @finish-tutorial="onFinishTutorial")
+			navigate-buttons(:config="props.config" @finish-tutorial="onFinishTutorial" @navigate-to-step="onNavigateToStep")
 </template>
 
 <script setup>
@@ -22,6 +22,7 @@ import ExitButton from '../exit-button/exit-button.vue';
 import HoledLayer from '../holed-layer/holed-layer.vue';
 import ImageBox from '../image-box/image-box.vue';
 import NavigateButtons from '../navigate-buttons/navigate-buttons.vue';
+import removeTutorialCssClasses from '../../utils/remove-tutorial-css-classes';
 import StepperProgress from './stepper-progress.vue';
 import {useStore} from '../../store/use-store';
 import VideoBox from '../video-box/video-box.vue';
@@ -54,26 +55,21 @@ const currentComputedStep = computed(() => {
 	};
 });
 
+const onNavigateToStep = direction => {
+	removeTutorialCssClasses();
+}
 const onStepToIndex = index => {
+	removeTutorialCssClasses();
 	store.stepToIndex(index);
 };
 
-const removeTutorialClasses = () => {
-	const CURRENT_ELEMENT_CLASSNAME = 'tt-current-element';
-	const CURRENT_PARENTS_CLASSNAME = 'tt-current-parents';
-	const affectedElements = Array.from(document.querySelectorAll(`.${CURRENT_PARENTS_CLASSNAME},.${CURRENT_ELEMENT_CLASSNAME}`));
-	affectedElements.forEach(affectedElement => {
-		affectedElement.classList.remove(`${CURRENT_PARENTS_CLASSNAME}}`, `${CURRENT_ELEMENT_CLASSNAME}`);
-	});
-};
-
 const onExitTutorial = () => {
-	removeTutorialClasses();
+	removeTutorialCssClasses();
 	emit('exit-tutorial');
 };
 
 const onFinishTutorial = () => {
-	removeTutorialClasses();
+	removeTutorialCssClasses();
 	emit('finish-tutorial');
 };
 </script>

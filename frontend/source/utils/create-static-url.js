@@ -19,7 +19,7 @@ export const staticCachePlugin = {
 		app.provide(`$${constants.INIT_STATIC}`, () => {
 			const hasStaticOnTheBottom = top[options.bottom];
 			if (hasStaticOnTheBottom) {
-				localStorage.setItem(`${constants.APP_NAME}-${constants.INIT_STATIC}`, !hasStaticOnTheBottom);
+				localStorage.setItem(`${constants.APP_NAME}_${constants.INIT_STATIC}`, !hasStaticOnTheBottom);
 				options.get(options.static(hasStaticOnTheBottom));
 			}
 		});

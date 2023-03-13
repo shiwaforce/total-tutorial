@@ -24,7 +24,7 @@ const props = defineProps({
 
 const outerContainer = ref(null);
 const currentStep = computed(() => props.config.steps[props.config.currentStep]);
-const currentDomElement = computed(() => document.querySelector(currentStep.value.selector) || document.createElement('div'));
+const currentDomElement = computed(() => (currentStep.value.selector && document.querySelector(currentStep.value.selector)) || document.createElement('div'));
 const currentElementBoundingRect = computed(() => {
 	const boundingBox = currentDomElement.value.getBoundingClientRect();
 	return {
@@ -44,7 +44,7 @@ const boxTop = computed(() => {
 	}
 	return `${calculatedTop}px`;
 });
-const boxLeft = computed(() => `${calculateTutorialBoxLeft(currentStep.value.width, currentStep.value.selector, currentElementBoundingRect.value)}`);
+const boxLeft = computed(() => calculateTutorialBoxLeft(currentStep.value.width, currentStep.value.selector, currentElementBoundingRect.value));
 const arrowLeft = computed(() => `${currentElementBoundingRect.value.left - removePxSuffix(boxLeft.value)}px`);
 // element highlight
 const elementLayerHeight = computed(() => currentElementBoundingRect.value.height + 8 + 'px');
