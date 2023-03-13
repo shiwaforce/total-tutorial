@@ -67,6 +67,13 @@ document.body.addEventListener('total-tutorial-finish', finishEvent => {
 });
 ```
 
+If you want to reset your tutorial with a button or any element, you can do it with the following code:
+
+```js
+document.dispatchEvent(new Event('total-tutorial-restart'));
+```
+
+
 ## Contributors
 
 - Gyuri

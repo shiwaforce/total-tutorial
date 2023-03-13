@@ -55,7 +55,7 @@ onMounted(() => {
 	});
 	observer.observe(document.body, {attributes: true, childList: true, subtree: true});
 	const initStatic = inject(`$${constants.INIT_STATIC}`);
-	if (!localStorage.getItem(`${constants.APP_NAME}-${constants.INIT_STATIC}`)) {
+	if (!localStorage.getItem(`${constants.APP_NAME}_${constants.INIT_STATIC}`)) {
 		initStatic();
 	}
 });
