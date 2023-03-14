@@ -25,15 +25,18 @@ const hasAllElementsLoaded = ref(false);
 const store = useStore();
 
 let config = store.configForCurrentUrl();
+let observing = false;
 
 const stepSelectorPresent = step => !step.selector || document.querySelector(step.selector);
 let observerTimeout = -1;
+let websiteMutationTimeoutOnBootMs = constants.WEBSITE_MUTATION_TIMEOUT_ON_BOOT_MS;
 const loadAnyway = () => {
 	const foundMustHaveSelectorMissing = config?.steps?.filter(step => step.selector && step.mustPresent && !document.querySelector(step.selector));
 	if (foundMustHaveSelectorMissing.length) {
 		console.debug('waits for must have selectors', foundMustHaveSelectorMissing.map(step => step.selector));
 		// if mutation observer not trigger, try it later
-		observerTimeout = setTimeout(loadAnyway, constants.WEBSITE_MUTATION_TIMEOUT_ON_BOOT_MS);
+		observerTimeout = setTimeout(loadAnyway, websiteMutationTimeoutOnBootMs);
+		websiteMutationTimeoutOnBootMs *= 1.25;
 	} else {
 		const notFoundSteps = config?.steps?.filter(step => step.selector && !document.querySelector(step.selector));
 		console.debug('site does not loaded at time, drop not loaded selectors', notFoundSteps.map(step => step.selector));
@@ -57,12 +60,18 @@ const mutationObserverCallback = () => {
 	}
 }
 const observer = new MutationObserver(mutationObserverCallback);
-
+const startObserving = () => {
+	console.debug('observing start');
+	observer.observe(document.body, {attributes: true, childList: true, subtree: true});
+	mutationObserverCallback();
+	observing = true;
+}
+let state;
 onMounted(() => {
 	try {
-		const state = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEY))?.[window.location.pathname];
-		isTutorialClosed.value = state?.isClosed;
-		isTutorialFinished.value = state?.isFinished;
+		state = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEY))?.[window.location.pathname];
+		isTutorialClosed.value = state?.exit;
+		isTutorialFinished.value = state?.finish;
 	} catch (error) {
 		console.warn('Couldn\'t get local storage', error, isTutorialClosed, isTutorialFinished);
 		isTutorialClosed.value = false;
@@ -71,13 +80,19 @@ onMounted(() => {
 	onPathChange(() => {
 		config = store.configForCurrentUrl();
 		hasAllElementsLoaded.value = config?.steps?.every(step => document.querySelector(step.selector) || !step.selector);
+		if (!observing) {
+			startObserving();
+		}
 	});
-	console.debug('observing start');
-	observer.observe(document.body, {attributes: true, childList: true, subtree: true});
-	mutationObserverCallback();
-	const initStatic = inject(`$${constants.INIT_STATIC}`);
-	if (!localStorage.getItem(`${constants.APP_NAME}_${constants.INIT_STATIC}`)) {
-		initStatic();
+	const isNeedToShow = config && !(isTutorialFinished.value || isTutorialClosed.value);
+	if (isNeedToShow) {
+		startObserving();
+		const initStatic = inject(`$${constants.INIT_STATIC}`);
+		if (!localStorage.getItem(`${constants.APP_NAME}_${constants.INIT_STATIC}`)) {
+			initStatic();
+		}
+	} else {
+		console.debug('tutorial not need to show', isNeedToShow, isTutorialFinished.value, isTutorialClosed.value);
 	}
 });
 
