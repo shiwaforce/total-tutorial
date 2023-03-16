@@ -1,5 +1,5 @@
 <template lang="pug">
-button.tt-close(title="Exit from tutorial..." @click="openExitPopup")
+button.tt-close(title="Exit" @click="openExitPopup")
 	svg-icon(icon="close-x")
 TutorialPopup(v-if="isPopupOpen")
 	template#header(#header) Are you sure you want to exit the tutorial?
