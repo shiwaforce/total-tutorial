@@ -42,10 +42,10 @@ const loadAnyway = () => {
 		console.debug('site does not loaded at time, drop not loaded selectors', notFoundSteps.map(step => step.selector));
 		notFoundSteps.forEach(step => {
 			step.selector = '';
-		})
+		});
 		hasAllElementsLoaded.value = true;
 	}
-}
+};
 const mutationObserverCallback = () => {
 	clearTimeout(observerTimeout);
 	const loaded = config?.steps?.length && config?.steps.every(stepSelectorPresent);
@@ -58,14 +58,14 @@ const mutationObserverCallback = () => {
 		// if site too slow, or broken, show tutorial anyway
 		observerTimeout = setTimeout(loadAnyway, constants.WEBSITE_MUTATION_TIMEOUT_ON_BOOT_MS);
 	}
-}
+};
 const observer = new MutationObserver(mutationObserverCallback);
 const startObserving = () => {
 	console.debug('observing start');
 	observer.observe(document.body, {attributes: true, childList: true, subtree: true});
 	mutationObserverCallback();
 	observing = true;
-}
+};
 let state;
 onMounted(() => {
 	try {
@@ -77,14 +77,14 @@ onMounted(() => {
 		isTutorialClosed.value = false;
 		isTutorialFinished.value = false;
 	}
+	const isNeedToShow = config && !(isTutorialFinished.value || isTutorialClosed.value);
 	onPathChange(() => {
 		config = store.configForCurrentUrl();
 		hasAllElementsLoaded.value = config?.steps?.every(step => document.querySelector(step.selector) || !step.selector);
-		if (!observing) {
+		if (!observing && isNeedToShow) {
 			startObserving();
 		}
 	});
-	const isNeedToShow = config && !(isTutorialFinished.value || isTutorialClosed.value);
 	if (isNeedToShow) {
 		startObserving();
 		const initStatic = inject(`$${constants.INIT_STATIC}`);
@@ -108,7 +108,7 @@ function sendDomEvent(eventName, detail = {}) {
 	}));
 }
 
-const updateTutorialState = (actionType) => {
+const updateTutorialState = actionType => {
 	const currentPathname = window.location.pathname;
 	const state = loadStateFromLocalStorage();
 	const tutorialState = state[currentPathname] || {steps: []};
