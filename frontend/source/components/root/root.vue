@@ -27,6 +27,8 @@ const store = useStore();
 let config = store.configForCurrentUrl();
 let observing = false;
 
+const initStatic = inject(`$${constants.INIT_STATIC}`);
+
 const stepSelectorPresent = step => !step.selector || document.querySelector(step.selector);
 let observerTimeout = -1;
 let websiteMutationTimeoutOnBootMs = constants.WEBSITE_MUTATION_TIMEOUT_ON_BOOT_MS;
@@ -87,7 +89,6 @@ onMounted(() => {
 	});
 	if (isNeedToShow) {
 		startObserving();
-		const initStatic = inject(`$${constants.INIT_STATIC}`);
 		if (!localStorage.getItem(`${constants.APP_NAME}_${constants.INIT_STATIC}`)) {
 			initStatic();
 		}
