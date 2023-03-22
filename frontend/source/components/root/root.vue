@@ -10,7 +10,7 @@ step-box(
 
 <script setup>
 import constants from '../../utils/constants';
-import {inject, nextTick, onBeforeUnmount, onMounted, ref} from 'vue';
+import {inject, onBeforeUnmount, onMounted, ref} from 'vue';
 import loadStateFromLocalStorage from '../../utils/state/load-state-from-local-storage';
 import onPathChange from '../../utils/on-path-change';
 import saveStateToLocalStorage from '../../utils/state/save-state-to-local-storage';
@@ -69,7 +69,8 @@ const startObserving = () => {
 	observing = true;
 };
 let state;
-onMounted(() => {
+
+function startup() {
 	try {
 		state = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEY))?.[window.location.pathname];
 		isTutorialClosed.value = state?.exit;
@@ -95,6 +96,15 @@ onMounted(() => {
 	} else {
 		console.debug('tutorial not need to show', isNeedToShow, isTutorialFinished.value, isTutorialClosed.value);
 	}
+}
+onMounted(() => {
+	startup();
+});
+
+document.addEventListener('total-tutorial-restart', () => {
+	localStorage.removeItem(`${constants.APP_NAME}_${constants.INIT_STATIC}`);
+	localStorage.removeItem(`${constants.LOCAL_STORAGE_KEY}`);
+	startup();
 });
 
 onBeforeUnmount(() => {
