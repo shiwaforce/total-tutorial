@@ -25,6 +25,7 @@
 	border-radius: 12px;
 	display: flex;
 	flex-direction: column;
+	z-index: var(--z-index-popup-content);
 	left: calc(50% - 300px);
 	min-height: 320px;
 	overflow: hidden;
@@ -32,7 +33,24 @@
 	position: fixed;
 	top: calc(50% - 128px);
 	width: 600px;
-	z-index: var(--z-index-popup-content);
+}
+
+/* Styles for screens smaller than 768px */
+@media only screen and (max-width: 767px) {
+	.tt-popup {
+		left: 16px;
+		width: calc(100% - 32px);
+	}
+}
+
+/* Styles for screens between 768px and 1024px */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+	.tt-popup {
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 80%;
+	}
 }
 
 .tt-popup-header {
@@ -41,7 +59,6 @@
 	color: var(--color-base);
 	display: flex;
 	font-size: 24px;
-	height: 24px;
 }
 
 .tt-popup-body {
