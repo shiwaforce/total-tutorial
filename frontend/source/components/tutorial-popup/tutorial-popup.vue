@@ -9,6 +9,15 @@
 		slot(name="footer")
 </template>
 
+<script setup>
+defineProps({
+	min: {
+		type: Number,
+		default: 320
+	}
+});
+</script>
+
 <style scoped>
 .tt-popup-layer {
 	top: 0;
@@ -27,7 +36,7 @@
 	flex-direction: column;
 	z-index: var(--z-index-popup-content);
 	left: calc(50% - 300px);
-	min-height: 320px;
+	min-height: v-bind(min + 'px');
 	overflow: hidden;
 	padding: 16px;
 	position: fixed;
@@ -58,7 +67,7 @@
 	background: var(--background-color);
 	color: var(--color-base);
 	display: flex;
-	font-size: 24px;
+	font-size: 20px;
 }
 
 .tt-popup-body {
@@ -72,5 +81,6 @@
 	border-top: 1px solid var(--color-gray-d9);
 	height: 42px;
 	display: flex;
+	padding-top: 16px;
 }
 </style>

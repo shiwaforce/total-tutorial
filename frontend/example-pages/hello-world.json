@@ -1,1 +1,22 @@
-{"/hello-world.html":{"steps":[{"selector":"body > div:nth-of-type(1) > h2","title":"sdf","description":"sdfsdf"},{"selector":"body > div:nth-of-type(1) > h1","title":"sdf","description":"sdfsdfsdf"}]}}
+{
+	"/hello-world.html": {
+		"steps": [
+			{
+				"selector": "body > div:nth-of-type(1) > h2",
+				"title": "sdf",
+				"description": "sdfsdf"
+			},
+			{
+				"selector": "#middle",
+				"title": "This is a title for middle element",
+				"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla turpis turpis, scelerisque sed arcu eu, accumsan fermentum mi. Nam urna tortor, consequat sed ornare vel, congue a quam. Proin ullamcorper auctor sem ut sagittis. Sed sodales tincidunt purus, ac placerat ex molestie non. Quisque tempor sit amet enim eget eleifend. Maecenas odio ante, cursus id odio nec, luctus dignissim lectus. Cras vel leo tellus. Nulla lacinia orci vitae ex dapibus bibendum. Morbi mollis, nulla ac suscipit tincidunt, ligula ligula placerat mauris, ut iaculis tortor augue sed ipsum.\nVestibulum nisi nunc, pharetra a risus a, tempor luctus eros. Nulla eget faucibus massa, ut ornare nisi. Ut rutrum sapien vehicula aliquam convallis. Maecenas id massa eget ligula vestibulum condimentum. Nullam convallis auctor interdum. Suspendisse tincidunt libero quis cursus feugiat.\n\nFusce hendrerit auctor dapibus. Nunc hendrerit elit quis gravida interdum. Maecenas dui ex, scelerisque quis nulla quis, euismod pharetra libero. Maecenas lobortis a ante ut varius. Quisque a odio a metus facilisis ullamcorper tincidunt vitae dolor. Praesent lacinia, ipsum nec interdum volutpat, arcu augue bibendum sapien, at eleifend nunc eros a nisi. Etiam fringilla elit sit amet ullamcorper ornare. Nullam et risus rhoncus, eleifend metus vel, ultricies sem.",
+				"width": "400px"
+			},
+			{
+				"selector": "body > div:nth-of-type(1) > h1",
+				"title": "sdf",
+				"description": "sdfsdfsdf"
+			}
+		]
+	}
+}

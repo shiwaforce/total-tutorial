@@ -35,6 +35,7 @@ const stepToIndex = index => {
 <style scoped>
 .tt-step-container {
 	display: flex;
+	justify-content: center;
 	margin: 10px;
 	gap: 6px;
 }

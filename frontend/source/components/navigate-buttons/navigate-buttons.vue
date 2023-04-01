@@ -1,11 +1,14 @@
 <template lang="pug">
 button.tt-navigate-button(v-if="hasPreviousButton" @click="stepRelative(-1)") Back
+div(class="tt-navigate-button-placeholder" v-else)
+stepper-progress(class="tt-buttons-middle" :steps="config.steps" :current-step="config.currentStep" @step-to-index="emit('step-to-index', $event)")
 button.tt-navigate-button(v-if="hasNextButton" ref="nextButton" @click="stepRelative(+1)") Next
 button.tt-navigate-button(v-if="hasFinishButton" @click="finish") Finish
 </template>
 
 <script setup>
 import {computed, ref, watch} from 'vue';
+import StepperProgress from '../step-box/stepper-progress.vue';
 import {useStore} from '../../store/use-store';
 
 const props = defineProps({
@@ -15,7 +18,7 @@ const props = defineProps({
 	}
 });
 
-const emit = defineEmits(['finish-tutorial', 'navigate-to-step']);
+const emit = defineEmits(['finish-tutorial', 'navigate-to-step', 'step-to-index']);
 
 const store = useStore();
 const nextButton = ref(null);
@@ -44,6 +47,11 @@ const finish = () => {
 </script>
 
 <style scoped>
+.tt-navigate-button,
+.tt-navigate-button-placeholder {
+	width: 48px;
+}
+
 .tt-navigate-button {
 	background-color: var(--color-gray-ff);
 	border: 1px solid var(--color-base);
@@ -61,5 +69,9 @@ const finish = () => {
 .tt-navigate-button:hover {
 	background-color: #e5e7eb;
 	transition: background-color var(--fast) ease-in-out;
+}
+
+.tt-buttons-middle {
+	flex-grow: 1;
 }
 </style>

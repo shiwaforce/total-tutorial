@@ -1,7 +1,7 @@
 <template lang="pug">
 button.tt-close(title="Exit" @click="openExitPopup")
-	svg-icon(icon="close-x")
-TutorialPopup(v-if="isPopupOpen")
+	svg-icon(icon="close-x" size="24")
+TutorialPopup(v-if="isPopupOpen" :min="160")
 	template#header(#header) Are you sure you want to exit the tutorial?
 	template(#body)
 		p.tt-body-content
@@ -41,7 +41,7 @@ const exitTutorial = () => {
 .tt-close {
 	background: transparent;
 	cursor: pointer;
-	margin: 8px;
+	padding: 8px 8px 4px 8px;
 	position: absolute;
 	right: 0;
 	top: 0;

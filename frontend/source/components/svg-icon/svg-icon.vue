@@ -152,12 +152,16 @@ defineProps({
 	icon: {
 		type: String,
 		required: true
+	},
+	size: {
+		type: Number,
+		default: 32
 	}
 });
 </script>
 
 <style scoped>
 .tt-icon {
-	width: 32px;
+	width: v-bind(size + 'px');
 }
 </style>

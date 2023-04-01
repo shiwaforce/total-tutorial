@@ -15,6 +15,35 @@ Just include into your website. For example:
 <script src="/total-tutorial.js?config=/config.json"></script>
 ```
 
+Or it can be a bit more concrete, more specific, more particular. Here, on github, open the developer tool and paste the following code into the console:
+
+```javascript
+totalTutorialConfig = {
+	'/shiwaforce/total-tutorial': {
+		steps: [
+			{
+				selector: 'div :has( > details > [title="Switch branches or tags"])',
+				title: 'Here you can change the branch',
+				description: 'This is an example description to describe github branch selector',
+				width: 240,
+				height: 200
+			},
+			{
+				selector: 'a.btn[data-hotkey="t"]',
+				title: 'Go to file',
+				description: 'This is another button',
+				width: 240,
+				height: 200
+			}
+		]
+	}
+}
+```
+
+And now, copy the contents of the dist folder total-tutorial.js into the console. It's important to open the js file in another tab so that you stay at this url: "https://github.com/shiwaforce/total-tutorial". This will bring up the Total Tutorial, yes, here on github!
+
+Here is the link to <a href="https://raw.githubusercontent.com/shiwaforce/total-tutorial/master/frontend/dist/total-tutorial.js" target="_blank">frontend/dist/total-tutorial.js</a>
+
 ## How to set up a config?
 
 The format of the config is very [simple and intuitive](./config.md), so it can be compiled manually. However, we also provide a wyswyg method. On the website where you want to host the application, paste the following script into the developer toolbar's console:

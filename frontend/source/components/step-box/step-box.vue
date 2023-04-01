@@ -1,17 +1,15 @@
 <template lang="pug">
 holed-layer(:config="config")
 	exit-button(@exit-tutorial="onExitTutorial")
+	h1.tt-current-step-title(v-if="currentComputedStep.title" v-html="currentComputedStep.title")
 	.tt-container
-		h1.tt-current-step-title(v-if="currentComputedStep.title" v-html="currentComputedStep.title")
 		p.tt-current-step-description(v-if="currentComputedStep.description" v-html="currentComputedStep.description")
 		.tt-video-container
 			video-box(v-if="currentComputedStep.videoUrl" :video-url="currentComputedStep.videoUrl")
 		.tt-image-container
 			image-box(v-if="currentComputedStep.imageUrl" :image-url="currentComputedStep.imageUrl")
-		.tt-progress-container
-			stepper-progress(:steps="config.steps" :current-step="config.currentStep" @step-to-index="onStepToIndex($event)")
-		.tt-navigate-buttons-container(:class="{'tt-justify-content-right': config.currentStep <= 0}")
-			navigate-buttons(:config="props.config" @finish-tutorial="onFinishTutorial" @navigate-to-step="onNavigateToStep")
+	.tt-navigate-buttons-container(:class="{'tt-justify-content-right': config.currentStep <= 0}")
+		navigate-buttons(:config="props.config" @finish-tutorial="onFinishTutorial" @navigate-to-step="onNavigateToStep" @step-to-index="onStepToIndex($event)")
 </template>
 
 <script setup>
@@ -23,7 +21,6 @@ import HoledLayer from '../holed-layer/holed-layer.vue';
 import ImageBox from '../image-box/image-box.vue';
 import NavigateButtons from '../navigate-buttons/navigate-buttons.vue';
 import removeTutorialCssClasses from '../../utils/remove-tutorial-css-classes';
-import StepperProgress from './stepper-progress.vue';
 import {useStore} from '../../store/use-store';
 import VideoBox from '../video-box/video-box.vue';
 
@@ -77,16 +74,17 @@ const onFinishTutorial = () => {
 <style scoped>
 .tt-container {
 	display: flex;
+	flex-grow: 1;
 	flex-flow: column;
-	height: calc(100% - 1px);
-	padding-right: 8px;
+	overflow: auto;
+	padding: 8px 8px 8px 0;
 	width: 100%;
 }
 
 .tt-current-step-title {
 	color: var(--color-base);
-	font-size: 24px;
-	margin-bottom: 12px;
+	font-size: 20px;
+	margin: 0;
 }
 
 .tt-current-step-title:before { /* placeholder for the close button */
@@ -107,7 +105,7 @@ const onFinishTutorial = () => {
 	display: flex;
 	justify-content: space-between;
 	margin: -1px 0;
-	padding: 8px 0 1px;
+	padding: 8px 8px 1px 0;
 }
 
 .tt-justify-content-right {

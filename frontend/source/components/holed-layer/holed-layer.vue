@@ -153,8 +153,9 @@ onMounted(() => {
 }
 
 .tt-outer-container {
+	display: flex;
+	flex-direction: column;
 	height: 100%;
-	overflow: auto;
 }
 
 .tt-arrow {
