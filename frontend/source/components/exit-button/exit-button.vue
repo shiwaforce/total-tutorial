@@ -64,6 +64,7 @@ const exitTutorial = () => {
 }
 
 .tt-button-container {
+	align-items: center;
 	display: flex;
 	justify-content: space-around;
 	width: 100%;
