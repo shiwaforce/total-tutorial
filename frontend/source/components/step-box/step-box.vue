@@ -1,5 +1,5 @@
 <template lang="pug">
-holed-layer(:config="config")
+holed-layer(:key="refreshCounter" :config="config")
 	exit-button(@exit-tutorial="onExitTutorial")
 	h1.tt-current-step-title(v-if="currentComputedStep.title" v-html="currentComputedStep.title")
 	.tt-container
@@ -13,7 +13,7 @@ holed-layer(:config="config")
 </template>
 
 <script setup>
-import {computed} from 'vue';
+import {computed, ref} from 'vue';
 import constants from '../../utils/constants';
 import DOMPurify from 'dompurify';
 import ExitButton from '../exit-button/exit-button.vue';
@@ -26,7 +26,7 @@ import VideoBox from '../video-box/video-box.vue';
 
 const store = useStore();
 const emit = defineEmits(['exit-tutorial', 'finish-tutorial']);
-
+const refreshCounter = ref(0);
 const props = defineProps({
 	config: {
 		type: Object,
@@ -51,10 +51,13 @@ const currentComputedStep = computed(() => {
 		description: sanitizedDescription
 	};
 });
-
+window.addEventListener('resize', () => {
+	// It's necessary to force a re-render of the component when the window is resized
+	refreshCounter.value++;
+});
 const onNavigateToStep = direction => {
 	removeTutorialCssClasses();
-}
+};
 const onStepToIndex = index => {
 	removeTutorialCssClasses();
 	store.stepToIndex(index);
