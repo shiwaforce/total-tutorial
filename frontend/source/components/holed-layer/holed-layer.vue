@@ -144,7 +144,7 @@ onMounted(() => {
 	border-radius: 8px;
 	height: v-bind(currentStepHeight);
 	left: v-bind(boxLeft);
-	padding: 8px 0 8px 8px; /* because scrollbar */
+	padding: 12px 0 12px 12px; /* because scrollbar */
 	position: v-bind(boxPosition);
 	top: v-bind(boxTop);
 	transition: height 750ms, left 500ms, top 500ms, width 750ms;
