@@ -41,7 +41,7 @@ const exitTutorial = () => {
 .tt-close {
 	background: transparent;
 	cursor: pointer;
-	padding: 8px 8px 4px 8px;
+	padding: 8px;
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -49,6 +49,9 @@ const exitTutorial = () => {
 
 .tt-close svg {
 	color: var(--color-normal);
+	display: block;
+	height: 20px;
+	width: 20px;
 }
 
 .tt-close svg:hover {
