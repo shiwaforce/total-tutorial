@@ -38,7 +38,7 @@ defineProps({
 	left: calc(50% - 300px);
 	min-height: v-bind(min + 'px');
 	overflow: hidden;
-	padding: 16px;
+	padding: 12px;
 	position: fixed;
 	top: calc(50% - 128px);
 	width: 600px;
@@ -72,15 +72,15 @@ defineProps({
 
 .tt-popup-body {
 	color: var(--color-normal);
-	flex-grow: 1;
 	margin-top: 8px;
 }
 
 .tt-popup-footer {
 	align-items: center;
 	border-top: 1px solid var(--color-gray-d9);
-	height: 42px;
 	display: flex;
-	padding-top: 16px;
+	height: 42px;
+	margin-top: 20px;
+	padding-top: 20px;
 }
 </style>
