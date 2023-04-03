@@ -47,11 +47,11 @@ const boxTop = computed(() => {
 const boxLeft = computed(() => calculateTutorialBoxLeft(currentStep.value.width, currentStep.value.selector, currentElementBoundingRect.value));
 const arrowLeft = computed(() => `${currentElementBoundingRect.value.left - removePxSuffix(boxLeft.value)}px`);
 // element highlight
-const elementLayerHeight = computed(() => currentElementBoundingRect.value.height + 8 + 'px');
-const elementLayerWidth = computed(() => currentElementBoundingRect.value.width + 8 + 'px');
-const elementLayerLeft = computed(() => currentElementBoundingRect.value.left - 4 + 'px');
-const elementLayerTop = computed(() => currentElementBoundingRect.value.top - 4 + 'px');
-const elementBorder = computed(() => currentStep.value.selector ? 4 + 'px' : 0);
+const elementLayerHeight = computed(() => currentElementBoundingRect.value.height + 12 + 'px');
+const elementLayerWidth = computed(() => currentElementBoundingRect.value.width + 12 + 'px');
+const elementLayerLeft = computed(() => currentElementBoundingRect.value.left - 6 + 'px');
+const elementLayerTop = computed(() => currentElementBoundingRect.value.top - 6 + 'px');
+const elementBorder = computed(() => currentStep.value.selector ? 3 + 'px' : 0);
 const boxPosition = computed(() => {
 	if (!currentStep.value.selector) {
 		return 'fixed';
@@ -126,7 +126,7 @@ onMounted(() => {
 
 .tt-element-layer {
 	background-color: var(--tt-highlightedElementBackgroundColor);
-	border: v-bind(elementBorder) solid #000;
+	border: v-bind(elementBorder) solid #141414;
 	border-radius: 2px;
 	box-sizing: border-box;
 	height: v-bind(elementLayerHeight);
