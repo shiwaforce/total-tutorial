@@ -35,12 +35,13 @@ defineProps({
 	display: flex;
 	flex-direction: column;
 	z-index: var(--z-index-popup-content);
-	left: calc(50% - 300px);
+	left: 50%;
 	min-height: v-bind(min + 'px');
 	overflow: hidden;
 	padding: 12px;
 	position: fixed;
 	top: calc(50% - 128px);
+	transform: translateX(-50%);
 	width: 600px;
 }
 
