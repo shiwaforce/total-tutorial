@@ -22,8 +22,9 @@ const calculateTutorialBoxLeft = (width, selector, currentElementBoundingRect) =
 		const right = left + boxWidth;
 
 		// If the element extends beyond the right edge of the screen, adjust the left position.
-		if (right > screenWidth - scrollbarWidth) {
-			return `${left - (right - screenWidth + scrollbarWidth)}px`;
+		if (right >= screenWidth - scrollbarWidth) {
+			// +1 is to account for half pixels, and to ensure that the box is not flush against the right edge of the screen.
+			return `${left - (right - screenWidth + scrollbarWidth + 1 )}px`;
 		} else {
 			return `${left}px`;
 		}
