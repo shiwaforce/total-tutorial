@@ -32,16 +32,17 @@ defineProps({
 .tt-popup {
 	background: var(--background-color);
 	border-radius: 12px;
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	z-index: var(--z-index-popup-content);
 	left: 50%;
 	min-height: v-bind(min + 'px');
 	overflow: hidden;
-	padding: 12px;
+	padding: 12px 12px 22px 12px;
 	position: fixed;
-	top: calc(50% - 128px);
-	transform: translateX(-50%);
+	top: 50%;
+	transform: translate(-50%, -50%);
 	width: 600px;
 }
 
@@ -81,6 +82,7 @@ defineProps({
 	border-top: 1px solid var(--color-gray-d9);
 	display: flex;
 	height: 42px;
+	justify-content: space-between;
 	margin-top: 20px;
 	padding-top: 20px;
 }

@@ -49,7 +49,6 @@ onMounted(() => {
 	border-radius: 6px;
 	color: var(--color-base);
 	cursor: pointer;
-	margin: auto 0 0 auto;
 	padding: 8px;
 }
 
@@ -64,6 +63,6 @@ onMounted(() => {
 }
 
 .tt-dont-show-again input {
-	margin: -5px 8px 0 0;
+	margin: 0 8px 0 0;
 }
 </style>

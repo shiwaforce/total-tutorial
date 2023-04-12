@@ -43,15 +43,13 @@ const exitTutorial = () => {
 	cursor: pointer;
 	padding: 8px;
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: 5px;
+	top: 6px;
 }
 
 .tt-close svg {
 	color: var(--color-normal);
 	display: block;
-	height: 20px;
-	width: 20px;
 }
 
 .tt-close svg:hover {

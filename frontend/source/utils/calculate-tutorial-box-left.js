@@ -18,7 +18,7 @@ const calculateTutorialBoxLeft = (width, selector, currentElementBoundingRect) =
 	if (selector) {
 		// Calculate the minimum left position required to fully show the element inside the screen.
 		const minLeft = screenWidth - boxWidth - scrollbarWidth;
-		const left = Math.max(Math.min(elementLeft - 25 - scrollbarWidth, minLeft), 2);
+		const left = Math.max(Math.min(elementLeft + 12 - scrollbarWidth, minLeft), 2);
 		const right = left + boxWidth;
 
 		// If the element extends beyond the right edge of the screen, adjust the left position.

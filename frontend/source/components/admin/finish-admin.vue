@@ -51,10 +51,6 @@ setTimeout(() => {
 	padding: 8px;
 }
 
-.tt-next {
-	margin: auto 0 0 auto;
-}
-
 .tt-next:focus {
 	outline: 1px solid var(--color-base);
 }
@@ -64,5 +60,6 @@ setTimeout(() => {
 	color: var(--background-color);
 	font-family: monospace;
 	margin-top: 16px;
+	padding: 6px;
 }
 </style>

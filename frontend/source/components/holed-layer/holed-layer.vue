@@ -45,7 +45,7 @@ const boxTop = computed(() => {
 	return `${calculatedTop}px`;
 });
 const boxLeft = computed(() => calculateTutorialBoxLeft(currentStep.value.width, currentStep.value.selector, currentElementBoundingRect.value));
-const arrowLeft = computed(() => `${currentElementBoundingRect.value.left - removePxSuffix(boxLeft.value)}px`);
+const arrowLeft = computed(() => `${currentElementBoundingRect.value.left + 12 - removePxSuffix(boxLeft.value)}px`);
 // element highlight
 const elementLayerHeight = computed(() => currentElementBoundingRect.value.height + 12 + 'px');
 const elementLayerWidth = computed(() => currentElementBoundingRect.value.width + 12 + 'px');
@@ -127,7 +127,7 @@ onMounted(() => {
 .tt-element-layer {
 	background-color: var(--tt-highlightedElementBackgroundColor);
 	border: v-bind(elementBorder) solid #141414;
-	border-radius: 2px;
+	border-radius: 8px;
 	box-sizing: border-box;
 	height: v-bind(elementLayerHeight);
 	left: v-bind(elementLayerLeft);
@@ -160,13 +160,13 @@ onMounted(() => {
 
 .tt-arrow {
 	background: transparent;
-	border-bottom: 10px solid #eee;
+	border-bottom: 10px solid #f3f4f6;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
 	left: v-bind(arrowLeft);
 	height: 0;
 	position: absolute;
-	top: -10px;
+	top: -9px;
 	width: 0;
 }
 

@@ -27,9 +27,9 @@ const currentElementBoundingRect = computed(() => {
 		left: getOffsetLeft(currentDomElement.value)
 	};
 });
-const elementLayerHeight = computed(() => `${currentElementBoundingRect.value.height + 8}px`);
+const elementLayerHeight = computed(() => `${currentElementBoundingRect.value.height + 10}px`);
 const elementLayerWidth = computed(() => `${currentElementBoundingRect.value.width + 8}px`);
-const elementLayerLeft = computed(() => `${currentElementBoundingRect.value.left - 4}px`);
+const elementLayerLeft = computed(() => `${currentElementBoundingRect.value.left - 7}px`);
 const elementLayerTop = computed(() => `${currentElementBoundingRect.value.top - 4}px`);
 
 watch(() => props.step, newStepValue => {
@@ -44,8 +44,8 @@ currentDomElement.value.classList.add(constants.CURRENT_ELEMENT_CLASSNAME); // f
 
 <style scoped>
 .tt-element-layer {
-	border: 4px solid #000;
-	border-radius: 2px;
+	border: 3px solid #141414;
+	border-radius: 8px;
 	box-sizing: border-box;
 	height: v-bind(elementLayerHeight);
 	left: v-bind(elementLayerLeft);
