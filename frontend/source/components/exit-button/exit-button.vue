@@ -44,7 +44,7 @@ const exitTutorial = () => {
 	padding: 8px;
 	position: absolute;
 	right: 5px;
-	top: 6px;
+	top: 4px;
 }
 
 .tt-close svg {

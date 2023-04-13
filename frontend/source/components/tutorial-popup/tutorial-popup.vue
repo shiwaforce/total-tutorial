@@ -13,7 +13,7 @@
 defineProps({
 	min: {
 		type: Number,
-		default: 320
+		default: 120
 	}
 });
 </script>

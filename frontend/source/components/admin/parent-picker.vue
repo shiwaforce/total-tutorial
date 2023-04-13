@@ -174,7 +174,7 @@ function endRangeDrag() {
 	border-radius: 6px;
 	margin-left: -12px;
 	margin-right: -12px;
-	padding: 12px;
+	padding: 12px 12px 0 12px;
 }
 
 .range {

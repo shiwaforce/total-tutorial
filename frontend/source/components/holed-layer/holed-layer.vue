@@ -172,7 +172,7 @@ onMounted(() => {
 
 :global(.tt-current-element) {
 	position: relative;
-	z-index: 92147483645 !important; /* cannot use variables in outside of tutorial container */
+	z-index: 99996; /* cannot use variables in outside of tutorial container */
 }
 
 :global(.tt-current-parents) {
