@@ -70,7 +70,7 @@ const startObserving = () => {
 };
 let state;
 
-function startup() {
+function calculateNeedToShow() {
 	try {
 		state = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEY))?.[window.location.pathname];
 		isTutorialClosed.value = state?.exit;
@@ -80,8 +80,13 @@ function startup() {
 		isTutorialClosed.value = false;
 		isTutorialFinished.value = false;
 	}
-	const isNeedToShow = config && !(isTutorialFinished.value || isTutorialClosed.value);
+	return config && !(isTutorialFinished.value || isTutorialClosed.value);
+}
+
+function startup() {
+	let isNeedToShow = calculateNeedToShow();
 	onPathChange(() => {
+		isNeedToShow = calculateNeedToShow();
 		config = store.configForCurrentUrl();
 		hasAllElementsLoaded.value = config?.steps?.every(step => document.querySelector(step.selector) || !step.selector);
 		if (!observing && isNeedToShow) {
