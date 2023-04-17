@@ -107,6 +107,18 @@ document.addEventListener('total-tutorial-restart', () => {
 	startup();
 });
 
+document.addEventListener('total-tutorial-restart-on-path', () => {
+	try {
+		localStorage.removeItem(`${constants.APP_NAME}_${constants.INIT_STATIC}`);
+		const tutorialState = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEY));
+		delete tutorialState[window.location.pathname];
+		localStorage.setItem(constants.LOCAL_STORAGE_KEY, JSON.stringify(tutorialState));
+		startup();
+	} catch (error) {
+		console.warn('Couldn\'t get local storage', error);
+	}
+});
+
 onBeforeUnmount(() => {
 	observer.disconnect();
 });

@@ -102,6 +102,12 @@ If you want to reset your tutorial with a button or any element, you can do it w
 document.dispatchEvent(new Event('total-tutorial-restart'));
 ```
 
+Or if you want to restart your tutorial only on the currently active page, you can do it with the following code:
+
+```js
+document.dispatchEvent(new Event('total-tutorial-restart'));
+```
+
 
 ## Contributors
 
