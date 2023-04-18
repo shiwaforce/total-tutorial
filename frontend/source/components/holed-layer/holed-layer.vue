@@ -45,13 +45,13 @@ const boxTop = computed(() => {
 	return `${calculatedTop}px`;
 });
 const boxLeft = computed(() => calculateTutorialBoxLeft(currentStep.value.width, currentStep.value.selector, currentElementBoundingRect.value));
-const arrowLeft = computed(() => `${currentElementBoundingRect.value.left - removePxSuffix(boxLeft.value)}px`);
+const arrowLeft = computed(() => `${currentElementBoundingRect.value.left + 12 - removePxSuffix(boxLeft.value)}px`);
 // element highlight
-const elementLayerHeight = computed(() => currentElementBoundingRect.value.height + 8 + 'px');
-const elementLayerWidth = computed(() => currentElementBoundingRect.value.width + 8 + 'px');
-const elementLayerLeft = computed(() => currentElementBoundingRect.value.left - 4 + 'px');
-const elementLayerTop = computed(() => currentElementBoundingRect.value.top - 4 + 'px');
-const elementBorder = computed(() => currentStep.value.selector ? 4 + 'px' : 0);
+const elementLayerHeight = computed(() => currentElementBoundingRect.value.height + 12 + 'px');
+const elementLayerWidth = computed(() => currentElementBoundingRect.value.width + 12 + 'px');
+const elementLayerLeft = computed(() => currentElementBoundingRect.value.left - 6 + 'px');
+const elementLayerTop = computed(() => currentElementBoundingRect.value.top - 6 + 'px');
+const elementBorder = computed(() => currentStep.value.selector ? 3 + 'px' : 0);
 const boxPosition = computed(() => {
 	if (!currentStep.value.selector) {
 		return 'fixed';
@@ -126,8 +126,8 @@ onMounted(() => {
 
 .tt-element-layer {
 	background-color: var(--tt-highlightedElementBackgroundColor);
-	border: v-bind(elementBorder) solid #000;
-	border-radius: 2px;
+	border: v-bind(elementBorder) solid #141414;
+	border-radius: 8px;
 	box-sizing: border-box;
 	height: v-bind(elementLayerHeight);
 	left: v-bind(elementLayerLeft);
@@ -144,7 +144,7 @@ onMounted(() => {
 	border-radius: 8px;
 	height: v-bind(currentStepHeight);
 	left: v-bind(boxLeft);
-	padding: 8px 0 8px 8px; /* because scrollbar */
+	padding: 12px 0 12px 12px; /* because scrollbar */
 	position: v-bind(boxPosition);
 	top: v-bind(boxTop);
 	transition: height 750ms, left 500ms, top 500ms, width 750ms;
@@ -160,19 +160,19 @@ onMounted(() => {
 
 .tt-arrow {
 	background: transparent;
-	border-bottom: 10px solid #eee;
+	border-bottom: 10px solid #f3f4f6;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
 	left: v-bind(arrowLeft);
 	height: 0;
 	position: absolute;
-	top: -10px;
+	top: -9px;
 	width: 0;
 }
 
 :global(.tt-current-element) {
 	position: relative;
-	z-index: 92147483645 !important; /* cannot use variables in outside of tutorial container */
+	z-index: 99996; /* cannot use variables in outside of tutorial container */
 }
 
 :global(.tt-current-parents) {

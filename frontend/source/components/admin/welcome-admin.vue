@@ -41,7 +41,8 @@ onMounted(() => {
 	border-radius: 6px;
 	color: var(--color-base);
 	cursor: pointer;
-	margin: auto 0 0 auto;
+	margin-left: auto;
+	margin-right: 0;
 	padding: 8px;
 }
 

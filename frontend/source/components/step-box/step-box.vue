@@ -108,7 +108,7 @@ const onFinishTutorial = () => {
 	display: flex;
 	justify-content: space-between;
 	margin: -1px 0;
-	padding: 8px 8px 1px 0;
+	padding: 8px 12px 1px 0;
 }
 
 .tt-justify-content-right {
