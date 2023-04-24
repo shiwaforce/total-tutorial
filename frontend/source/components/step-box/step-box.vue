@@ -101,6 +101,7 @@ const onFinishTutorial = () => {
 .tt-current-step-description {
 	color: var(--color-normal);
 	flex-grow: 1;
+	white-space: pre-line;
 }
 
 .tt-navigate-buttons-container {
